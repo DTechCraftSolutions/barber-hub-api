@@ -6,7 +6,7 @@ Barber-hub-api
 
 Usuario:
 
-- [] Deve ser possivel se autenticar um usuario
+- [x] Deve ser possivel se autenticar um usuario
 - [] Deve ser possivel editar as informações de um usuario
 - [] Deve ser possivel fazer agendamento
 - [] Deve ser possivel cancelar ou editar um agendamento
@@ -30,8 +30,8 @@ Barbearia:
 
 ## RNs (Regras de negócio)
 
-- [] O usuário não deve poder se cadastrar com um e-mail duplicado
-- [] a senha deve ter no minimo 6 caracteres
+- [x] O usuário não deve poder se cadastrar com um e-mail duplicado
+- [x] a senha deve ter no minimo 6 caracteres
 - [] pode recuperar a senha caso tenha esquecido
 - [] o usuario não pode criar dois ou mais agendamentos no mesmo horario
 - [] o usuario não pode agendar em horario indisponivel
@@ -39,6 +39,6 @@ Barbearia:
 
 ## RNFs (Requisitos não-funcionais)
 
-- [] A senha do usuário precisa estar criptografada
-- [] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
+- [x] A senha do usuário precisa estar criptografada
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
 - [] Data e hora em Timestamp
