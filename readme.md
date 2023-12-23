@@ -7,7 +7,7 @@ Barber-hub-api
 Usuario:
 
 - [x] Deve ser possivel se autenticar um usuario
-- [] Deve ser possivel editar as informações de um usuario
+- [x] Deve ser possivel editar as informações de um usuario
 - [] Deve ser possivel fazer agendamento
 - [] Deve ser possivel cancelar ou editar um agendamento
 - [] Deve ser possivel avaliar uma barbearia
@@ -20,7 +20,7 @@ Usuario:
 
 Barbearia:
 
-- [] Deve ser possivel autenticar uma barbearia
+- [x] Deve ser possivel autenticar uma barbearia
 - [] Deve ser possivel cadastrar profissionais
 - [] Deve ser possivel cadastrar serviços
 - [] Deve ser possivel ver quadro de horarios

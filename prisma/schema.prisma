@@ -39,12 +39,14 @@ model BarberShop {
 }
 
 model Professional {
-  id    String @id @default(uuid())
-  name  String
-  phone String
-
-  barber_shops BarberShop @relation(fields: [barberShopId], references: [id])
-  barberShopId String
+  id            String     @id @default(uuid())
+  name          String
+  phone         String
+  email         String
+  password_hash String
+  barber_shops  BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId  String
+  Schedule      Schedule[]
 
   @@map("professionals")
 }
@@ -53,12 +55,15 @@ model Schedule {
   id   String   @id @default(uuid())
   date DateTime
 
-  services     Service    @relation(fields: [serviceId], references: [id])
-  barber_shop  BarberShop @relation(fields: [barberShopId], references: [id])
-  users        User       @relation(fields: [userId], references: [id])
-  serviceId    String
-  barberShopId String
-  userId       String
+  services      Service      @relation(fields: [serviceId], references: [id])
+  barber_shop   BarberShop   @relation(fields: [barberShopId], references: [id])
+  users         User         @relation(fields: [userId], references: [id])
+  professionals Professional @relation(fields: [professionalId], references: [id])
+
+  serviceId      String
+  barberShopId   String
+  userId         String
+  professionalId String
 
   @@map("schedules")
 }
