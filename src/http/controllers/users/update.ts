@@ -12,7 +12,8 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
   });
 
   try {
-    const { id, name, email, password } = updateBodySchema.parse(request.body);
+    const { name, email, password } = updateBodySchema.parse(request.body);
+    const { id } = updateBodySchema.parse(request.params);
 
     const usersRepository = new PrismaUsersRepository();
     const updateUserUseCase = new UpdateUserUseCase(usersRepository);

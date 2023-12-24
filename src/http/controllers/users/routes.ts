@@ -5,6 +5,6 @@ import { authenticate } from "./authenticate";
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post("/users", register);
-  app.put("/users", update);
+  app.put("/users/:id", update);
   app.post("/users/authenticate", authenticate);
 }
