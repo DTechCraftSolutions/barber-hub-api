@@ -17,6 +17,7 @@ export class PrismaBarbersRepository implements BarberRepository {
         name,
         logo_url,
         plan,
+        updated_at: new Date(),
       },
     });
 

@@ -15,6 +15,7 @@ export class PrismaUsersRepository implements UsersRepository {
         name,
         email,
         password_hash,
+        updated_at: new Date(),
       },
     });
 

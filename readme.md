@@ -12,7 +12,7 @@ Usuario:
 - [] Deve ser possivel cancelar ou editar um agendamento
 - [] Deve ser possivel avaliar uma barbearia
 - [] Deve ser possivel editar uma avaliação
-- [] Deve ser possivel pesquisar pelo nome de uma barbearia
+- [x] Deve ser possivel pesquisar pelo nome de uma barbearia
 - [] Deve ser possivel receber notificações (whats) quando estiver proximo do horario agendado
 - [] Deve ser possivel buscar por barbearias mais proximas (6)
 - [] Deve ser possivel visualizar os 3 ultimos agendamentos
@@ -22,11 +22,12 @@ Barbearia:
 
 - [x] Deve ser possivel autenticar uma barbearia
 - [] Deve ser possivel cadastrar profissionais
-- [] Deve ser possivel cadastrar serviços
+- [x] Deve ser possivel cadastrar serviços
+- [x] Deve ser possivel atualizar um serviço
 - [] Deve ser possivel ver quadro de horarios
 - [] Deve ser possivel entrar em contato com o cliente (whatsApp/ligar)
 - [] Deve ser possivel controlar seus horarios
-- [] Deve ser possivel cadastrar, gerenciar e editar informações da barbearia: fotos, nome, horario de atendimento, ENDEREÇO
+- [x] Deve ser possivel cadastrar, gerenciar e editar informações da barbearia: fotos, nome, horario de atendimento, ENDEREÇO
 
 ## RNs (Regras de negócio)
 
@@ -41,4 +42,4 @@ Barbearia:
 
 - [x] A senha do usuário precisa estar criptografada
 - [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL
-- [] Data e hora em Timestamp
+- [x] Data e hora em Timestamp
