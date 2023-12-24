@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  WORKER
+}
+
 model User {
   id            String     @id @default(uuid())
   name          String
@@ -39,14 +44,16 @@ model BarberShop {
 }
 
 model Professional {
-  id            String     @id @default(uuid())
+  id            String @id @default(uuid())
   name          String
   phone         String
   email         String
   password_hash String
-  barber_shops  BarberShop @relation(fields: [barberShopId], references: [id])
-  barberShopId  String
-  Schedule      Schedule[]
+  role          Role   @default(ADMIN)
+
+  Schedule     Schedule[]
+  BarberShop   BarberShop? @relation(fields: [barberShopId], references: [id])
+  barberShopId String?
 
   @@map("professionals")
 }
