@@ -10,8 +10,8 @@ Usuario:
 - [x] Deve ser possivel editar as informações de um usuario
 - [] Deve ser possivel fazer agendamento
 - [] Deve ser possivel cancelar ou editar um agendamento
-- [] Deve ser possivel avaliar uma barbearia
-- [] Deve ser possivel editar uma avaliação
+- [x] Deve ser possivel avaliar uma barbearia
+- [x] Deve ser possivel editar uma avaliação
 - [x] Deve ser possivel pesquisar pelo nome de uma barbearia
 - [] Deve ser possivel receber notificações (whats) quando estiver proximo do horario agendado
 - [] Deve ser possivel buscar por barbearias mais proximas (6)
