@@ -4,6 +4,13 @@ import { Prisma, Professional } from "@prisma/client";
 import { ProfessionalRepository } from "../professional-repository";
 
 export class PrismaProfessionalRepository implements ProfessionalRepository {
+  async findByEmail(email: string) {
+    return prisma.professional.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
   async update(data: Professional) {
     const { id, email, name, password_hash, phone } = data;
 

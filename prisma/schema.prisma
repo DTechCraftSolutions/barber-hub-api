@@ -47,7 +47,7 @@ model Professional {
   id            String @id @default(uuid())
   name          String
   phone         String
-  email         String
+  email         String @unique
   password_hash String
   role          Role   @default(ADMIN)
 
