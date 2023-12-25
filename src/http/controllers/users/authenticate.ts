@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export async function authenticate(
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply | any
 ) {
   const authenticateBodySchema = z.object({
     email: z.string().email(),
@@ -25,7 +25,30 @@ export async function authenticate(
       password,
     });
 
-    return reply.status(200).send({ user });
+    const token = await reply.jwtSign({
+      sign: {
+        sub: user.id,
+      },
+    });
+
+    const refreshToken = await reply.jwtSign({
+      sign: {
+        sub: user.id,
+        expiresIn: "30d",
+      },
+    });
+
+    return reply
+      .setCookie("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      });
   } catch (error) {
     return reply.status(401).send({
       error: error instanceof Error ? error.message : "Authentication failed",

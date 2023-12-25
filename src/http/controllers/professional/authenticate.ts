@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export async function authenticateProfessional(
   request: FastifyRequest,
-  reply: FastifyReply
+  reply: FastifyReply | any
 ) {
   const authenticateBodySchema = z.object({
     email: z.string().email(),
@@ -28,8 +28,30 @@ export async function authenticateProfessional(
       email,
       password,
     });
+    const token = await reply.jwtSign({
+      sign: {
+        sub: professional.id,
+      },
+    });
 
-    return reply.status(200).send({ professional });
+    const refreshToken = await reply.jwtSign({
+      sign: {
+        sub: professional.id,
+        expiresIn: "30d",
+      },
+    });
+
+    return reply
+      .setCookie("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      });
   } catch (error) {
     return reply.status(401).send({
       error: error instanceof Error ? error.message : "Authentication failed",

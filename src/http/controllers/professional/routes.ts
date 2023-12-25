@@ -4,6 +4,9 @@ import { registerProfessionalWorkers } from "./register-workers";
 import { update } from "./update-adm";
 import { updateWorkers } from "./update-workers";
 import { authenticateProfessional } from "./authenticate";
+import { verifyJwt } from "@/http/middlewares/verify-jwt";
+import { profile } from "./profile";
+import { refresh } from "./refresh";
 
 export async function professionalRoutes(app: FastifyInstance) {
   app.post("/professionals", registerProfessional);
@@ -11,4 +14,8 @@ export async function professionalRoutes(app: FastifyInstance) {
   app.post("/professionals/authenticate", authenticateProfessional);
   app.put("/professionals", update);
   app.put("/professionals/workers", updateWorkers);
+
+  app.patch("/token/refresh", refresh);
+
+  app.get("/me", { onRequest: [verifyJwt] }, profile);
 }
