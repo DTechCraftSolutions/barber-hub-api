@@ -6,6 +6,7 @@ import { rateRoutes } from "./http/controllers/rate/routes";
 import { professionalRoutes } from "./http/controllers/professional/routes";
 import fastifyJwt from "@fastify/jwt";
 import { env } from "./env";
+import fastifyCookie from "@fastify/cookie";
 export const app = fastify();
 
 app.register(fastifyJwt, {
@@ -18,6 +19,7 @@ app.register(fastifyJwt, {
     expiresIn: "10m",
   },
 });
+app.register(fastifyCookie);
 
 app.register(usersRoutes);
 app.register(barberRoutes);
