@@ -6,6 +6,7 @@ import { RegisterProfessionalUseCase } from "@/use-cases/register-professional";
 import { RegisterBarberUseCase } from "@/use-cases/register-barber";
 
 interface RegisterProfessionalRequestBody {
+  nameBarber: string;
   name: string;
   phone: string;
   email: string;
@@ -31,6 +32,7 @@ const registerProfessionalBodySchema = z.object({
   city: z.string(),
   plan: z.string(),
   logo_url: z.string().url(),
+  nameBarber: z.string(),
 });
 
 export async function registerProfessional(
@@ -53,13 +55,15 @@ export async function registerProfessional(
     await registerProfessionalUseCase.execute(requestBody);
 
     return reply.status(201).send();
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof ZodError) {
       return reply.status(400).send({ validationError: error.errors });
+    } else if (error.code === "P2002" && error.meta?.target?.includes("cpf")) {
+      return reply.status(409).send({ error: "Duplicate CPF detected" });
+    } else {
+      return reply.status(409).send({
+        error: error instanceof Error ? error.message : "Registration failed",
+      });
     }
-
-    return reply.status(409).send({
-      error: error instanceof Error ? error.message : "Registration failed",
-    });
   }
 }

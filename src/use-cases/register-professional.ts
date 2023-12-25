@@ -3,6 +3,7 @@ import { Professional, Role } from "@prisma/client";
 import { RegisterBarberUseCase } from "./register-barber";
 
 interface RegisterProfessionalUseCaseRequest {
+  nameBarber: string;
   name: string;
   phone: string;
   email: string;
@@ -26,6 +27,7 @@ export class RegisterProfessionalUseCase {
   ) {}
 
   async execute({
+    nameBarber,
     name,
     phone,
     email,
@@ -44,7 +46,7 @@ export class RegisterProfessionalUseCase {
       const { barber } = await this.barberUseCase.execute({
         address,
         city,
-        name,
+        name: nameBarber,
         logo_url,
         plan,
         cpf,
