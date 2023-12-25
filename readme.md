@@ -21,7 +21,7 @@ Usuario:
 Barbearia:
 
 - [x] Deve ser possivel autenticar uma barbearia
-- [] Deve ser possivel cadastrar profissionais
+- [x] Deve ser possivel cadastrar profissionais
 - [x] Deve ser possivel cadastrar serviços
 - [x] Deve ser possivel atualizar um serviço
 - [] Deve ser possivel ver quadro de horarios

@@ -1,6 +1,7 @@
 import { ProfessionalRepository } from "@/repositories/professional-repository";
 import { Professional, Role } from "@prisma/client";
 import { RegisterBarberUseCase } from "./register-barber";
+import { hash } from "bcrypt";
 
 interface RegisterProfessionalUseCaseRequest {
   nameBarber: string;
@@ -56,11 +57,14 @@ export class RegisterProfessionalUseCase {
     }
 
     // Cria um profissional com os dados fornecidos e associa à nova barbearia (se existir)
+
+    const password_hashed = await hash(password_hash, 6);
+
     const professional = await this.professionalRepository.create({
       name,
       phone,
       email,
-      password_hash,
+      password_hash: password_hashed,
       role,
       BarberShop: barberShopId ? { connect: { id: barberShopId } } : undefined,
     });
