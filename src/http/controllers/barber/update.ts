@@ -1,10 +1,12 @@
 import { PrismaBarbersRepository } from "@/repositories/prisma/barber-repository";
+import { PrismaProfessionalRepository } from "@/repositories/prisma/professional-repository";
 import { UpdateBarberUseCase } from "@/use-cases/update-barber";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function update(request: FastifyRequest, reply: FastifyReply) {
   const updateBodySchema = z.object({
+    idAdmin: z.string(),
     id: z.string(),
     name: z.string().optional(),
     address: z.string().optional(),
@@ -15,13 +17,18 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
   });
 
   try {
-    const { id, name, address, city, plan, cpf, logo_url } =
+    const { id, idAdmin, name, address, city, plan, cpf, logo_url } =
       updateBodySchema.parse(request.body);
 
     const barberRepository = new PrismaBarbersRepository();
-    const updateBarberUseCase = new UpdateBarberUseCase(barberRepository);
+    const professionalRepository = new PrismaProfessionalRepository();
+    const updateBarberUseCase = new UpdateBarberUseCase(
+      barberRepository,
+      professionalRepository
+    );
 
     await updateBarberUseCase.execute({
+      idAdmin,
       id,
       address,
       city,

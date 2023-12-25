@@ -1,7 +1,9 @@
 import { BarberRepository } from "@/repositories/barber-repository";
+import { ProfessionalRepository } from "@/repositories/professional-repository";
 import { BarberShop } from "@prisma/client";
 
 interface UpdateBarberCaseRequest {
+  idAdmin: string;
   id: string;
   cpf?: string;
   logo_url?: string;
@@ -16,10 +18,14 @@ interface UpdateBarberCaseResponse {
 }
 
 export class UpdateBarberUseCase {
-  constructor(private barberRepository: BarberRepository) {}
+  constructor(
+    private barberRepository: BarberRepository,
+    private professionalRepository: ProfessionalRepository
+  ) {}
 
   async execute({
     id,
+    idAdmin,
     name,
     address,
     city,
@@ -27,6 +33,11 @@ export class UpdateBarberUseCase {
     logo_url,
     cpf,
   }: UpdateBarberCaseRequest): Promise<UpdateBarberCaseResponse> {
+    const professional = await this.professionalRepository.findById(idAdmin);
+    if (!professional || professional.role !== "ADMIN") {
+      throw new Error("Admin professional not found or not authorized");
+    }
+    id = professional.barberShopId as string;
     const barber = await this.barberRepository.findById(id);
 
     if (!barber) {
