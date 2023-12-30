@@ -20,13 +20,14 @@ export class PrismaBarbersRepository implements BarberRepository {
     return prisma.barberShop.findMany();
   }
   async update(data: BarberShop) {
-    const { address, city, name, id, logo_url, plan } = data;
+    const { address, city, name, id, logo_url, plan, available_times } = data;
 
     const updatedUser = await prisma.barberShop.update({
       where: {
         id,
       },
       data: {
+        available_times,
         address,
         city,
         name,

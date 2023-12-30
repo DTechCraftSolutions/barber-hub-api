@@ -11,6 +11,7 @@ interface UpdateBarberCaseRequest {
   address?: string;
   city?: string;
   plan?: string;
+  available_times?: string[];
 }
 
 interface UpdateBarberCaseResponse {
@@ -32,6 +33,7 @@ export class UpdateBarberUseCase {
     plan,
     logo_url,
     cpf,
+    available_times,
   }: UpdateBarberCaseRequest): Promise<UpdateBarberCaseResponse> {
     const professional = await this.professionalRepository.findById(idAdmin);
     if (!professional || professional.role !== "ADMIN") {
@@ -50,6 +52,7 @@ export class UpdateBarberUseCase {
     if (plan) barber.plan = plan;
     if (logo_url) barber.logo_url = logo_url;
     if (cpf) barber.cpf = cpf;
+    if (available_times) barber.available_times = available_times;
 
     const updatedBarber = await this.barberRepository.update(barber);
 

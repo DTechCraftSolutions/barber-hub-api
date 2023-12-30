@@ -7,14 +7,14 @@ import { z, ZodError } from "zod";
 const registerBodySchema = z.object({
   barberShopId: z.string(),
   name: z.string(),
-  needed_time_minutes: z.number(),
   price_cents: z.number(),
 });
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const { name, barberShopId, needed_time_minutes, price_cents } =
-      registerBodySchema.parse(request.body);
+    const { name, barberShopId, price_cents } = registerBodySchema.parse(
+      request.body
+    );
 
     const servicesRepository = new PrismaServicesRepository();
     const barberRepository = new PrismaBarbersRepository();
@@ -26,7 +26,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     await registerServiceUseCase.execute({
       barberShopId,
       name,
-      needed_time_minutes,
       price_cents,
     });
 

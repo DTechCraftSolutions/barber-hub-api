@@ -7,6 +7,7 @@ interface UpdateUseCaseRequest {
   name?: string;
   email?: string;
   password?: string;
+  phone?: string | null;
 }
 
 interface UpdateUseCaseResponse {
@@ -21,6 +22,7 @@ export class UpdateUserUseCase {
     name,
     email,
     password,
+    phone,
   }: UpdateUseCaseRequest): Promise<UpdateUseCaseResponse> {
     const user = await this.usersRepository.findById(id);
 
@@ -31,6 +33,7 @@ export class UpdateUserUseCase {
     if (name) user.name = name;
     if (email) user.email = email;
     if (password) user.password_hash = await hash(password, 6);
+    if (phone) user.phone = phone;
 
     const updatedUser = await this.usersRepository.update(user);
 

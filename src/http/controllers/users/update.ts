@@ -9,10 +9,13 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     name: z.string().optional(),
     email: z.string().email().optional(),
     password: z.string().min(6).optional(),
+    phone: z.string().optional(),
   });
 
   try {
-    const { name, email, password } = updateBodySchema.parse(request.body);
+    const { name, email, password, phone } = updateBodySchema.parse(
+      request.body
+    );
     const { id } = updateBodySchema.parse(request.params);
 
     const usersRepository = new PrismaUsersRepository();
@@ -23,6 +26,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
       name,
       email,
       password,
+      phone,
     });
 
     return reply.status(200).send();

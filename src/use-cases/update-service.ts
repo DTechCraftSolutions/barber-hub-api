@@ -6,7 +6,6 @@ interface UpdateServiceCaseRequest {
   id: string;
   name?: string;
   price_cents?: number;
-  needed_time_minutes?: number;
 }
 
 interface UpdateServiceCaseResponse {
@@ -20,7 +19,6 @@ export class UpdateServiceUseCase {
     id,
     name,
     price_cents,
-    needed_time_minutes,
   }: UpdateServiceCaseRequest): Promise<UpdateServiceCaseResponse> {
     const service = await this.servicesRepository.findById(id);
 
@@ -30,7 +28,6 @@ export class UpdateServiceUseCase {
 
     if (name) service.name = name;
     if (price_cents) service.price_cents = price_cents;
-    if (needed_time_minutes) service.needed_time_minutes = needed_time_minutes;
 
     const updatedUser = await this.servicesRepository.update(service);
 

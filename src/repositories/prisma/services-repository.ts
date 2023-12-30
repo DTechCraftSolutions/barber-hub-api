@@ -5,7 +5,7 @@ import { ServiceRepository } from "../services-repository";
 
 export class PrismaServicesRepository implements ServiceRepository {
   async update(data: Service) {
-    const { barberShopId, id, name, needed_time_minutes, price_cents } = data;
+    const { barberShopId, id, name, price_cents } = data;
 
     const updatedUser = await prisma.service.update({
       where: {
@@ -15,7 +15,6 @@ export class PrismaServicesRepository implements ServiceRepository {
         barberShopId,
         id,
         name,
-        needed_time_minutes,
         price_cents,
       },
     });

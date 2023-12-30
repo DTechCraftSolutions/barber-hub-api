@@ -17,6 +17,7 @@ interface RegisterProfessionalRequestBody {
   city: string;
   plan: string;
   logo_url: string;
+  available_times: string[];
 }
 
 const registerProfessionalBodySchema = z.object({
@@ -33,6 +34,7 @@ const registerProfessionalBodySchema = z.object({
   plan: z.string(),
   logo_url: z.string().url(),
   nameBarber: z.string(),
+  available_times: z.array(z.string()),
 });
 
 export async function registerProfessional(

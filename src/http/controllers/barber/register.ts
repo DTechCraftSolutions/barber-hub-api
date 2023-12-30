@@ -12,11 +12,12 @@ const registerBodySchema = z.object({
   city: z.string(),
   plan: z.string(),
   logo_url: z.string().url(),
+  available_times: z.array(z.string()),
 });
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const { name, cpf, address, city, plan, logo_url } =
+    const { name, cpf, address, city, plan, logo_url, available_times } =
       registerBodySchema.parse(request.body);
 
     const barbersRepository = new PrismaBarbersRepository();
@@ -29,6 +30,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       city,
       plan,
       logo_url,
+      available_times,
     });
 
     return reply.status(201).send();
@@ -37,10 +39,8 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       return reply.status(400).send({ validationError: error.errors });
     }
 
-    return reply
-      .status(409)
-      .send({
-        error: error instanceof Error ? error.message : "Registration failed",
-      });
+    return reply.status(409).send({
+      error: error instanceof Error ? error.message : "Registration failed",
+    });
   }
 }

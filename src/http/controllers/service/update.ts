@@ -7,13 +7,11 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
   const updateBodySchema = z.object({
     id: z.string(),
     name: z.string().optional(),
-    needed_time_minutes: z.number().optional(),
     price_cents: z.number().optional(),
   });
 
   try {
-    const { id, name, needed_time_minutes, price_cents } =
-      updateBodySchema.parse(request.body);
+    const { id, name, price_cents } = updateBodySchema.parse(request.body);
 
     const ServiceRepository = new PrismaServicesRepository();
     const updateServiceUseCase = new UpdateServiceUseCase(ServiceRepository);
@@ -21,7 +19,6 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     await updateServiceUseCase.execute({
       id,
       name,
-      needed_time_minutes,
       price_cents,
     });
 

@@ -14,11 +14,21 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     plan: z.string().optional(),
     cpf: z.string().optional(),
     logo_url: z.string().optional(),
+    available_times: z.array(z.string()).optional(),
   });
 
   try {
-    const { id, idAdmin, name, address, city, plan, cpf, logo_url } =
-      updateBodySchema.parse(request.body);
+    const {
+      id,
+      idAdmin,
+      name,
+      address,
+      city,
+      plan,
+      cpf,
+      logo_url,
+      available_times,
+    } = updateBodySchema.parse(request.body);
 
     const barberRepository = new PrismaBarbersRepository();
     const professionalRepository = new PrismaProfessionalRepository();
@@ -36,6 +46,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
       logo_url,
       name,
       plan,
+      available_times,
     });
 
     return reply.status(200).send();

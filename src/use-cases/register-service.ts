@@ -5,7 +5,6 @@ import { Service } from "@prisma/client";
 interface RegisterServiceUseCaseRequest {
   name: string;
   price_cents: number;
-  needed_time_minutes: number;
   barberShopId: string;
 }
 
@@ -22,7 +21,6 @@ export class RegisterServiceUseCase {
   async execute({
     barberShopId,
     name,
-    needed_time_minutes,
     price_cents,
   }: RegisterServiceUseCaseRequest): Promise<RegisterServiceUseCaseResponse> {
     const barber = await this.barberRepository.findById(barberShopId);
@@ -32,7 +30,6 @@ export class RegisterServiceUseCase {
 
     const service = await this.servicesRepository.create({
       name,
-      needed_time_minutes,
       price_cents,
       barber_shop: { connect: { id: barber.id } },
     });

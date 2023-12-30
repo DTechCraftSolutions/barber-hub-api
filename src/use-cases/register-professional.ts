@@ -15,6 +15,7 @@ interface RegisterProfessionalUseCaseRequest {
   cpf: string;
   logo_url: string;
   plan: string;
+  available_times: string[];
 }
 
 interface RegisterProfessionalUseCaseResponse {
@@ -39,6 +40,7 @@ export class RegisterProfessionalUseCase {
     cpf,
     logo_url,
     plan,
+    available_times,
   }: RegisterProfessionalUseCaseRequest): Promise<RegisterProfessionalUseCaseResponse> {
     let barberShopId: string | undefined;
 
@@ -51,6 +53,7 @@ export class RegisterProfessionalUseCase {
         logo_url,
         plan,
         cpf,
+        available_times,
       });
 
       barberShopId = barber.id;

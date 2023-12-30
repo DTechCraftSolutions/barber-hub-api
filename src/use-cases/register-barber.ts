@@ -8,6 +8,7 @@ interface RegisterBarberUseCaseRequest {
   address: string;
   city: string;
   plan: string;
+  available_times: string[];
 }
 
 interface RegisterBarberUseCaseResponse {
@@ -24,6 +25,7 @@ export class RegisterBarberUseCase {
     logo_url,
     plan,
     cpf,
+    available_times,
   }: RegisterBarberUseCaseRequest): Promise<RegisterBarberUseCaseResponse> {
     const barber = await this.barberRepository.create({
       address,
@@ -32,6 +34,7 @@ export class RegisterBarberUseCase {
       logo_url,
       plan,
       cpf,
+      available_times,
     });
 
     return { barber };

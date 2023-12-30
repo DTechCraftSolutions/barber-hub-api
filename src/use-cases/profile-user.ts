@@ -10,6 +10,7 @@ interface ProfileUserUseCaseResponse {
     id: User["id"];
     name: User["name"];
     email: User["email"];
+    phone?: User["phone"];
   };
 }
 

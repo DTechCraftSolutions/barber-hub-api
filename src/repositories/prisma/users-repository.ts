@@ -5,7 +5,7 @@ import { UsersRepository } from "../users-repository";
 
 export class PrismaUsersRepository implements UsersRepository {
   async update(data: User) {
-    const { name, id, email, password_hash } = data;
+    const { name, id, email, password_hash, phone } = data;
 
     const updatedUser = await prisma.user.update({
       where: {
@@ -15,6 +15,7 @@ export class PrismaUsersRepository implements UsersRepository {
         name,
         email,
         password_hash,
+        phone,
         updated_at: new Date(),
       },
     });
