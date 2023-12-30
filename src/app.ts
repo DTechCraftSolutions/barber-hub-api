@@ -20,7 +20,6 @@ app.register(fastifyJwt, {
   },
 });
 app.register(fastifyCookie);
-
 app.register(usersRoutes);
 app.register(barberRoutes);
 app.register(serviceRoutes);

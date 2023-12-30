@@ -15,7 +15,7 @@ export async function professionalRoutes(app: FastifyInstance) {
   app.put("/professionals", update);
   app.put("/professionals/workers", updateWorkers);
 
-  app.patch("/token/refresh", refresh);
+  app.patch("/token/refresh/professional", refresh);
 
-  app.get("/me", { onRequest: [verifyJwt] }, profile);
+  app.get("/me-professional", { onRequest: [verifyJwt] }, profile);
 }
