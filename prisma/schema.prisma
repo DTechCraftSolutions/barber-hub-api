@@ -16,6 +16,7 @@ model User {
   id            String     @id @default(uuid())
   name          String
   email         String     @unique
+  phone         String?
   password_hash String
   created_at    DateTime   @default(now())
   updated_at    DateTime   @default(now())
@@ -26,19 +27,20 @@ model User {
 }
 
 model BarberShop {
-  id           String         @id @default(uuid())
-  cpf          String         @unique
-  logo_url     String
-  name         String
-  address      String
-  city         String
-  plan         String
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @default(now())
-  Professional Professional[]
-  Schedule     Schedule[]
-  Rate         Rate[]
-  Service      Service[]
+  id              String         @id @default(uuid())
+  cpf             String         @unique
+  logo_url        String
+  name            String
+  address         String
+  city            String
+  plan            String
+  available_times String[]
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @default(now())
+  Professional    Professional[]
+  Schedule        Schedule[]
+  Rate            Rate[]
+  Service         Service[]
 
   @@map("barber_shops")
 }
@@ -71,6 +73,7 @@ model Schedule {
   barberShopId   String
   userId         String
   professionalId String
+  clientPhone    String
 
   @@map("schedules")
 }
@@ -88,13 +91,12 @@ model Rate {
 }
 
 model Service {
-  id                  String     @id @default(uuid())
-  name                String
-  price_cents         Int
-  needed_time_minutes Int
-  Schedule            Schedule[]
-  barber_shop         BarberShop @relation(fields: [barberShopId], references: [id])
-  barberShopId        String
+  id           String     @id @default(uuid())
+  name         String
+  price_cents  Int
+  Schedule     Schedule[]
+  barber_shop  BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId String
 
   @@map("services")
 }
