@@ -27,22 +27,31 @@ model User {
 }
 
 model BarberShop {
-  id              String         @id @default(uuid())
-  cpf             String         @unique
+  id              String          @id @default(uuid())
+  cpf             String          @unique
   logo_url        String
   name            String
   address         String
   city            String
   plan            String
-  available_times String[]
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @default(now())
+  available_times AvailableTime[]
+  created_at      DateTime        @default(now())
+  updated_at      DateTime        @default(now())
   Professional    Professional[]
   Schedule        Schedule[]
   Rate            Rate[]
   Service         Service[]
 
   @@map("barber_shops")
+}
+
+model AvailableTime {
+  id           String     @id @default(uuid())
+  label        String
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId String
+
+  @@map("available_times")
 }
 
 model Professional {

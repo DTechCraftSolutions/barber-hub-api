@@ -7,6 +7,7 @@ import { professionalRoutes } from "./http/controllers/professional/routes";
 import fastifyJwt from "@fastify/jwt";
 import { env } from "./env";
 import fastifyCookie from "@fastify/cookie";
+import { scheduleRoutes } from "./http/controllers/schedule/routes";
 export const app = fastify();
 
 app.register(fastifyJwt, {
@@ -25,3 +26,4 @@ app.register(barberRoutes);
 app.register(serviceRoutes);
 app.register(rateRoutes);
 app.register(professionalRoutes);
+app.register(scheduleRoutes);
