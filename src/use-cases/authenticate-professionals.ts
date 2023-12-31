@@ -38,7 +38,7 @@ export class AuthenticateProfessionalsUseCase {
     }
 
     const barbershop = await this.barberRepository.findById(
-      professional.id as string
+      professional.barberShopId as string
     );
 
     if (!barbershop) {

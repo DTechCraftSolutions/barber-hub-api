@@ -1,19 +1,17 @@
+import { BarberRepository } from "@/repositories/barber-repository";
 import { ProfessionalRepository } from "@/repositories/professional-repository";
-import { Professional } from "@prisma/client";
+import { BarberShop, Professional } from "@prisma/client";
 interface ProfileProfessionalsRequest {
   id: string;
 }
 interface ProfileProfessionalsResponse {
-  professionals: {
-    id: Professional["id"];
-    name: Professional["name"];
-    email: Professional["email"];
-    phone: Professional["phone"];
-  };
+  professionals: Professional;
+  barber: BarberShop;
 }
 export class ProfileProfessionals {
   constructor(
-    private readonly professionalsRepository: ProfessionalRepository
+    private professionalsRepository: ProfessionalRepository,
+    private barberRepository: BarberRepository
   ) {}
   async execute({
     id,
@@ -22,13 +20,15 @@ export class ProfileProfessionals {
     if (!professional) {
       throw new Error("Professional not found");
     }
+    const barber = await this.barberRepository.findById(
+      professional.barberShopId as string
+    );
+    if (!barber) {
+      throw new Error("Barber not found");
+    }
     return {
-      professionals: {
-        id: professional.id,
-        name: professional.name,
-        email: professional.email,
-        phone: professional.phone,
-      },
+      professionals: professional,
+      barber: barber,
     };
   }
 }
