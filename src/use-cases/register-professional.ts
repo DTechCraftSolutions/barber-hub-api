@@ -15,7 +15,6 @@ interface RegisterProfessionalUseCaseRequest {
   cpf: string;
   logo_url: string;
   plan: string;
-  available_times: string[];
 }
 
 interface RegisterProfessionalUseCaseResponse {
@@ -52,7 +51,6 @@ export class RegisterProfessionalUseCase {
         logo_url,
         plan,
         cpf,
-        available_times: [],
       });
 
       barberShopId = barber.id;

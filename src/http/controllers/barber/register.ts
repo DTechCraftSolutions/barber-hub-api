@@ -30,7 +30,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       city,
       plan,
       logo_url,
-      available_times,
     });
 
     return reply.status(201).send();

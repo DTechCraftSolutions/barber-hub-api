@@ -8,7 +8,6 @@ interface RegisterBarberUseCaseRequest {
   address: string;
   city: string;
   plan: string;
-  available_times: string[];
 }
 
 interface RegisterBarberUseCaseResponse {
