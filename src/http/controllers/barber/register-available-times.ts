@@ -4,7 +4,8 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z, ZodError } from "zod";
 
 const registerBodySchema = z.object({
-  label: z.string(),
+  initial_time: z.string(),
+  end_time: z.string(),
   barberShopId: z.string(),
 });
 
@@ -13,14 +14,17 @@ export async function registerAvailableTimes(
   reply: FastifyReply
 ) {
   try {
-    const { label, barberShopId } = registerBodySchema.parse(request.body);
+    const { initial_time, end_time, barberShopId } = registerBodySchema.parse(
+      request.body
+    );
 
     const available_timesRepository = new PrismaAvailableTimeRepository();
     const registerAvailableTimeUseCase =
       new RegisterAvailableTimesBarberUseCase(available_timesRepository);
 
     await registerAvailableTimeUseCase.execute({
-      label,
+      initial_time,
+      end_time,
       barberShopId,
     });
 

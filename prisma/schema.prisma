@@ -48,6 +48,8 @@ model BarberShop {
 model AvailableTime {
   id           String     @id @default(uuid())
   label        String
+  initial_time String?
+  end_time     String?
   barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId String
 
