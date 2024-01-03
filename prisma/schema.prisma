@@ -27,20 +27,20 @@ model User {
 }
 
 model BarberShop {
-  id              String          @id @default(uuid())
-  cpf             String          @unique
-  logo_url        String
-  name            String
-  address         String
-  city            String
-  plan            String
-  available_times AvailableTime[]
-  created_at      DateTime        @default(now())
-  updated_at      DateTime        @default(now())
-  Professional    Professional[]
-  Schedule        Schedule[]
-  Rate            Rate[]
-  Service         Service[]
+  id            String          @id @default(uuid())
+  cpf           String          @unique
+  logo_url      String
+  name          String
+  address       String
+  city          String
+  plan          String
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  Professional  Professional[]
+  Schedule      Schedule[]
+  Rate          Rate[]
+  Service       Service[]
+  AvailableTime AvailableTime[]
 
   @@map("barber_shops")
 }
@@ -48,9 +48,9 @@ model BarberShop {
 model AvailableTime {
   id           String     @id @default(uuid())
   label        String
-  initial_time String?
-  end_time     String?
-  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  initial_time DateTime?
+  end_time     DateTime?
+  barber_shops BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId String
 
   @@map("available_times")

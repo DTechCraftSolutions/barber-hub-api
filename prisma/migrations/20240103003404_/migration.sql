@@ -6,7 +6,7 @@ CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "phone" TEXT,
+    "phone" TEXT NOT NULL,
     "password_hash" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -23,11 +23,21 @@ CREATE TABLE "barber_shops" (
     "address" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "plan" TEXT NOT NULL,
-    "available_times" TEXT[],
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "barber_shops_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "available_times" (
+    "id" TEXT NOT NULL,
+    "label" TEXT NOT NULL,
+    "initial_time" TIMESTAMP(3),
+    "end_time" TIMESTAMP(3),
+    "barberShopId" TEXT NOT NULL,
+
+    CONSTRAINT "available_times_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -84,6 +94,9 @@ CREATE UNIQUE INDEX "barber_shops_cpf_key" ON "barber_shops"("cpf");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "professionals_email_key" ON "professionals"("email");
+
+-- AddForeignKey
+ALTER TABLE "available_times" ADD CONSTRAINT "available_times_barberShopId_fkey" FOREIGN KEY ("barberShopId") REFERENCES "barber_shops"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "professionals" ADD CONSTRAINT "professionals_barberShopId_fkey" FOREIGN KEY ("barberShopId") REFERENCES "barber_shops"("id") ON DELETE SET NULL ON UPDATE CASCADE;
