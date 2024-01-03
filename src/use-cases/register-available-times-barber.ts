@@ -5,6 +5,7 @@ interface RegisterAvailableTimesBarberUseCaseRequest {
   initial_time: string;
   end_time: string;
   barberShopId: string;
+  day_of_week: string;
 }
 
 interface RegisterAvailableTimesBarberUseCaseResponse {
@@ -18,10 +19,10 @@ export class RegisterAvailableTimesBarberUseCase {
     barberShopId,
     initial_time,
     end_time,
+    day_of_week,
   }: RegisterAvailableTimesBarberUseCaseRequest): Promise<RegisterAvailableTimesBarberUseCaseResponse> {
     var availableTimes: AvailableTime[] = [];
 
-    // Assumindo que as strings de tempo estão no formato HH:mm
     const startHours = parseInt(initial_time.split(":")[0]);
     const startMinutes = parseInt(initial_time.split(":")[1]);
 
@@ -32,9 +33,6 @@ export class RegisterAvailableTimesBarberUseCase {
     const endTime = new Date(1970, 0, 1, endHours, endMinutes);
 
     const interval = 30 * 60 * 1000; // 30 minutos em milissegundos
-
-    console.log("Start Time:", startTime);
-    console.log("End Time:", endTime);
 
     for (
       let currentTime = startTime;
@@ -47,27 +45,14 @@ export class RegisterAvailableTimesBarberUseCase {
         hour12: false,
       });
 
-      console.log("Inside loop at:", currentTime);
-      console.log(
-        "initial_time:",
-        initial_time,
-        "end_time:",
-        end_time,
-        "_label:",
-        _label
-      );
-
       const createdAvailableTime = await this.availableTimesRepository.create({
-        initial_time: currentTime,
-        end_time: new Date(currentTime.getTime() + interval),
         label: _label,
+        day_of_week,
         barber_shops: { connect: { id: barberShopId } },
       });
 
       availableTimes.push(createdAvailableTime);
     }
-
-    console.log("availableTimes:", availableTimes);
 
     return {
       availableTimes,

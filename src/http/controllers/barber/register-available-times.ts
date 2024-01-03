@@ -6,6 +6,7 @@ import { z, ZodError } from "zod";
 const registerBodySchema = z.object({
   initial_time: z.string(),
   end_time: z.string(),
+  day_of_week: z.string(),
   barberShopId: z.string(),
 });
 
@@ -14,9 +15,8 @@ export async function registerAvailableTimes(
   reply: FastifyReply
 ) {
   try {
-    const { initial_time, end_time, barberShopId } = registerBodySchema.parse(
-      request.body
-    );
+    const { initial_time, end_time, day_of_week, barberShopId } =
+      registerBodySchema.parse(request.body);
 
     const available_timesRepository = new PrismaAvailableTimeRepository();
     const registerAvailableTimeUseCase =
@@ -25,6 +25,7 @@ export async function registerAvailableTimes(
     await registerAvailableTimeUseCase.execute({
       initial_time,
       end_time,
+      day_of_week,
       barberShopId,
     });
 

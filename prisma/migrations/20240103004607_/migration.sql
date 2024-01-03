@@ -35,6 +35,7 @@ CREATE TABLE "available_times" (
     "label" TEXT NOT NULL,
     "initial_time" TIMESTAMP(3),
     "end_time" TIMESTAMP(3),
+    "day_of_week" TEXT NOT NULL,
     "barberShopId" TEXT NOT NULL,
 
     CONSTRAINT "available_times_pkey" PRIMARY KEY ("id")
