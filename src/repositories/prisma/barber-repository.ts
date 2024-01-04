@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma, BarberShop } from "@prisma/client";
+import { Prisma, BarberShop, $Enums } from "@prisma/client";
 
 import { BarberRepository } from "../barber-repository";
 
@@ -20,14 +20,13 @@ export class PrismaBarbersRepository implements BarberRepository {
     return prisma.barberShop.findMany();
   }
   async update(data: BarberShop) {
-    const { address, city, name, id, logo_url, plan, available_times } = data;
+    const { address, city, name, id, logo_url, plan } = data;
 
     const updatedUser = await prisma.barberShop.update({
       where: {
         id,
       },
       data: {
-        available_times,
         address,
         city,
         name,

@@ -1,15 +1,17 @@
+import { PrismaBarbersRepository } from "@/repositories/prisma/barber-repository";
 import { PrismaScheduleRepository } from "@/repositories/prisma/schedule-repository";
+import { PrismaUsersRepository } from "@/repositories/prisma/users-repository";
 import { RegisterScheduleUseCase } from "@/use-cases/register-schedule";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z, ZodError } from "zod";
 
 const registerBodySchema = z.object({
-  date: z.date(),
+  date: z.string(),
   serviceId: z.string(),
   barberShopId: z.string(),
   userId: z.string(),
   professionalId: z.string(),
-  clientPhone: z.string(),
+  availableTimeId: z.string(),
 });
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
@@ -20,12 +22,16 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       serviceId,
       userId,
       professionalId,
-      clientPhone,
+      availableTimeId,
     } = registerBodySchema.parse(request.body);
 
     const scheduleRepository = new PrismaScheduleRepository();
+    const barberRepository = new PrismaBarbersRepository();
+    const userRepository = new PrismaUsersRepository();
     const sheduleRegisterUseCase = new RegisterScheduleUseCase(
-      scheduleRepository
+      scheduleRepository,
+      userRepository,
+      barberRepository
     );
 
     const { schedule } = await sheduleRegisterUseCase.execute({
@@ -34,7 +40,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       barberShopId,
       userId,
       professionalId,
-      clientPhone,
+      availableTimeId,
     });
 
     return reply.status(201).send({ schedule });

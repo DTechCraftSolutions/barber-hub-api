@@ -1,4 +1,4 @@
-import { Prisma, BarberShop } from "@prisma/client";
+import { Prisma, BarberShop, Professional } from "@prisma/client";
 
 export interface BarberRepository {
   findById(id: string): Promise<BarberShop | null>;

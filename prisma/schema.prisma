@@ -51,6 +51,7 @@ model AvailableTime {
   day_of_week  String
   barber_shops BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId String
+  Schedule     Schedule[]
 
   @@map("available_times")
 }
@@ -74,16 +75,18 @@ model Schedule {
   id   String   @id @default(uuid())
   date DateTime
 
-  services      Service      @relation(fields: [serviceId], references: [id])
-  barber_shop   BarberShop   @relation(fields: [barberShopId], references: [id])
-  users         User         @relation(fields: [userId], references: [id])
-  professionals Professional @relation(fields: [professionalId], references: [id])
+  services      Service       @relation(fields: [serviceId], references: [id])
+  barber_shop   BarberShop    @relation(fields: [barberShopId], references: [id])
+  users         User          @relation(fields: [userId], references: [id])
+  professionals Professional  @relation(fields: [professionalId], references: [id])
+  availableTime AvailableTime @relation(fields: [availableTimeId], references: [id])
 
-  serviceId      String
-  barberShopId   String
-  userId         String
-  professionalId String
-  clientPhone    String
+  serviceId       String
+  barberShopId    String
+  userId          String
+  professionalId  String
+  clientPhone     String
+  availableTimeId String
 
   @@map("schedules")
 }

@@ -3,7 +3,7 @@ import { Prisma, Schedule } from "@prisma/client";
 
 import { ScheduleRepository } from "../schedule-repository";
 export class PrismaScheduleRepository implements ScheduleRepository {
-  async findById(id: string) {
+  async findById(id: string): Promise<Schedule | null> {
     const schedule = await prisma.schedule.findUnique({
       where: {
         id,
@@ -13,7 +13,7 @@ export class PrismaScheduleRepository implements ScheduleRepository {
     return schedule;
   }
 
-  async create(data: Prisma.ScheduleCreateInput) {
+  async create(data: Prisma.ScheduleCreateInput): Promise<Schedule> {
     const schedule = await prisma.schedule.create({
       data,
     });
