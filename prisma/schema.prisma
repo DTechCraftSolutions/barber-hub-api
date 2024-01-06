@@ -66,7 +66,7 @@ model Professional {
 
   Schedule     Schedule[]
   BarberShop   BarberShop? @relation(fields: [barberShopId], references: [id])
-  barberShopId String?
+  barberShopId String
 
   @@map("professionals")
 }

@@ -4,6 +4,17 @@ import { Prisma, Professional } from "@prisma/client";
 import { ProfessionalRepository } from "../professional-repository";
 
 export class PrismaProfessionalRepository implements ProfessionalRepository {
+  async findAll(barberShopId: string) {
+    const professionals = prisma.professional.findMany({
+      where: {
+        barberShopId,
+      },
+      include: {
+        BarberShop: true,
+      },
+    });
+    return professionals;
+  }
   async findByEmail(email: string) {
     return prisma.professional.findUnique({
       where: {

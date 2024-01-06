@@ -7,6 +7,7 @@ import { authenticateProfessional } from "./authenticate";
 import { verifyJwt } from "@/http/middlewares/verify-jwt";
 import { profile } from "./profile";
 import { refresh } from "./refresh";
+import { getAll } from "./get-all";
 
 export async function professionalRoutes(app: FastifyInstance) {
   app.post("/professionals", registerProfessional);
@@ -14,6 +15,8 @@ export async function professionalRoutes(app: FastifyInstance) {
   app.post("/professionals/authenticate", authenticateProfessional);
   app.put("/professionals", update);
   app.put("/professionals/workers", updateWorkers);
+
+  app.get("/all-professionals/:barberShopId", getAll);
 
   app.patch("/token/refresh/professional", refresh);
 
