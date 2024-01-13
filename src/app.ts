@@ -8,7 +8,13 @@ import fastifyJwt from "@fastify/jwt";
 import { env } from "./env";
 import fastifyCookie from "@fastify/cookie";
 import { scheduleRoutes } from "./http/controllers/schedule/routes";
+import cors from "@fastify/cors";
+
 export const app = fastify();
+
+app.register(cors, {
+  origin: true,
+});
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
